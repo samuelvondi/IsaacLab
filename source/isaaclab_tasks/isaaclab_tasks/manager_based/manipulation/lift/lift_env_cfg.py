@@ -102,6 +102,7 @@ class ObservationsCfg:
 
         joint_pos = ObsTerm(func=mdp.joint_pos_rel)
         joint_vel = ObsTerm(func=mdp.joint_vel_rel)
+#        eef_pos = ObsTerm(func=mdp.ee_frame_pos) # end-effector position added
         object_position = ObsTerm(func=mdp.object_position_in_robot_root_frame)
         target_object_position = ObsTerm(func=mdp.generated_commands, params={"command_name": "object_pose"})
         actions = ObsTerm(func=mdp.last_action)
@@ -112,6 +113,20 @@ class ObservationsCfg:
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()
+
+    # #subtasks
+    # @configclass
+    # class SubtaskCfg(ObsGroup):
+    #     """Observations for subtask group."""
+
+    #     grasp = ObsTerm(
+    #         func=mdp.object_grasped,
+    #         params={
+    #             "robot_cfg": SceneEntityCfg("robot"),
+    #             "ee_frame_cfg": SceneEntityCfg("ee_frame"),
+    #             "object_cfg": SceneEntityCfg("object", body_names="Object"),
+    #         },
+    #     )
 
 
 @configclass
@@ -170,7 +185,8 @@ class TerminationsCfg:
     object_dropping = DoneTerm(
         func=mdp.root_height_below_minimum, params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")}
     )
-
+    # added termination only for demos
+    #success = DoneTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.4, "object_cfg": SceneEntityCfg("object")})
 
 @configclass
 class CurriculumCfg:

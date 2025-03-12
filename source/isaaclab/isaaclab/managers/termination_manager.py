@@ -167,6 +167,7 @@ class TerminationManager(ManagerBase):
             if term_cfg.time_out:
                 self._truncated_buf |= value
             else:
+                #self._terminated_buf |= bool(value) #use for mimic pipeline
                 self._terminated_buf |= value
             # add to episode dones
             self._term_dones[name][:] = value
