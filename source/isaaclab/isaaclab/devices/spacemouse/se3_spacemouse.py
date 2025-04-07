@@ -49,7 +49,9 @@ class Se3SpaceMouse(DeviceBase):
         self.pos_sensitivity = pos_sensitivity
         self.rot_sensitivity = rot_sensitivity
         # acquire device interface
-        self._device = hid.Device()
+        self._device = hid.Device() 
+        #specific ids
+        # self._device = hid.Device(vid=0x46d, pid=0xc626)
         self._find_device()
         # read rotations
         self._read_rotation = False
@@ -126,6 +128,7 @@ class Se3SpaceMouse(DeviceBase):
                 ):
                     # set found flag
                     found = True
+                    print(f"Found device: {device['product_string']}")
                     vendor_id = device["vendor_id"]
                     product_id = device["product_id"]
                     # connect to the device
