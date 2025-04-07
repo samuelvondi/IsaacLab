@@ -49,7 +49,7 @@ class Se3SpaceMouse(DeviceBase):
         self.pos_sensitivity = pos_sensitivity
         self.rot_sensitivity = rot_sensitivity
         # acquire device interface
-        self._device = hid.device()
+        self._device = hid.Device()
         self._find_device()
         # read rotations
         self._read_rotation = False
@@ -122,6 +122,7 @@ class Se3SpaceMouse(DeviceBase):
                 if (
                     device["product_string"] == "SpaceMouse Compact"
                     or device["product_string"] == "SpaceMouse Wireless"
+                    or device["product_string"] == "SpaceNavigator"
                 ):
                     # set found flag
                     found = True
